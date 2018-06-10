@@ -1,6 +1,6 @@
 # predown
 
-> Preprocess Markdown files using Go templates and TOML configuration
+> Preprocess Markdown files using Go templates and TOML configuration. See [privacy](https://github.com/sbstjn/privacy) as example …
 
 ## Installation
 
