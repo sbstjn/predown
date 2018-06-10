@@ -29,13 +29,13 @@ To add `predown` to your existing setup, you can update your `Makefile` (hopeful
 PREDOWN= ./predown
 
 $(PREDOWN):
-	@ curl -sSLfo $(PREDOWN) \
-		` \
-			curl -sSLf https://api.github.com/repos/sbstjn/predown/releases/latest \
-			| grep browser_download_url \
-			| cut -d '"' -f 4 \
-			| grep $(shell uname -s | tr A-Z a-z) \
-		`
-	@ chmod +x $(PREDOWN)
-	@ $(PREDOWN) version
+  @ curl -sSLfo $(PREDOWN) \
+    ` \
+      curl -sSLf https://api.github.com/repos/sbstjn/predown/releases/latest \
+      | grep browser_download_url \
+      | cut -d '"' -f 4 \
+      | grep $(shell uname -s | tr A-Z a-z) \
+    `
+    @ chmod +x $(PREDOWN)
+    @ $(PREDOWN) version
 ```
