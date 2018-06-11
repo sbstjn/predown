@@ -37,6 +37,7 @@ jobs:
             - Makefile
             - vendor
             - "*.go"
+            - ".git"
 
   lint:
     <<: *defaults
