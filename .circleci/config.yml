@@ -96,7 +96,7 @@ jobs:
       - run:
           name: Create GitHub Release
           command: |
-            hub release create v${CIRCLE_TAG:1} -m 'v${CIRCLE_TAG:1}' -a dist/predown_darwin -a dist/predown_linux
+            hub release edit ${CIRCLE_TAG:1} -m '${CIRCLE_TAG:1}' -a dist/predown_darwin -a dist/predown_linux
 
 workflows:
   version: 2
