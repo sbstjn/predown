@@ -6,14 +6,17 @@
 
 ```bash
 # Print merged data to stdout
+
 $ > predown template.md
 $ > predown template.md --data data.toml
 $ > predown template.md --data data.toml --wrap wrapper.frontmatter
 
 # Pipe merged data to file
+
 $ > predown template.md > output.md
 
 # Create file and store data
+
 $ > predown template.md output.md
 $ > predown template.md output.md --data data.toml
 $ > predown template.md output.md --data data.toml --wrap wrapper.frontmatter
