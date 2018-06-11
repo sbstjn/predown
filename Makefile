@@ -7,4 +7,4 @@ build:
 	@ go build -ldflags ${FLAGS} -o dist/${NAME}_${GOOS}
 
 run:
-	@ go run -ldflags ${FLAGS} main.go ${CMD}
+	@ go run -ldflags ${FLAGS} main.go

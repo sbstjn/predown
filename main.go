@@ -1,20 +1,54 @@
 package main
 
-import "github.com/sbstjn/predown/cmd"
-
-var (
-	version string
-	name    = "predown"
+import (
+	"fmt"
+	"html/template"
+	"os"
+	"runtime"
 )
 
+var (
+	name    = "predown"
+	version = "0.0.0-dev"
+
+	flagData string
+	flagWrap string
+
+	data interface{}
+
+	templateWrapper *template.Template
+	templateIn      *template.Template
+
+	fileIn  string
+	fileOut string
+)
+
+func abort(format string, a ...interface{}) {
+	write("[Error] "+format+"\n", a...)
+	os.Exit(1)
+}
+
+func write(format string, a ...interface{}) {
+	fmt.Fprintf(os.Stderr, format+"\n", a...)
+}
+
+func init() {
+	command.PersistentFlags().StringVar(&flagData, "data", "", "Path to TOML data file")
+	command.PersistentFlags().StringVar(&flagWrap, "wrap", "", "Path to Markdown wrapper file")
+}
+
 func main() {
-	cmd.Name = name
+	command.Use = name
+	command.Version = version
 
-	if version != "" {
-		cmd.Version = version
-	} else {
-		cmd.Version = "0.0.0-dev"
+	command.SetVersionTemplate(fmt.Sprintf(
+		"{{ .Use }} v{{ .Version }} %s %s\n",
+		runtime.GOOS+"/"+runtime.GOARCH,
+		runtime.Version(),
+	))
+
+	if err := command.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
-
-	cmd.Execute()
 }
