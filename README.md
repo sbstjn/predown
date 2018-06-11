@@ -66,7 +66,8 @@ Example: Foo
 Headline
 ========
 
-Variable Example from `data.toml` is **Foo**.```
+Variable Example from `data.toml` is **Foo**.
+```
 
 ## Install
 
