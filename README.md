@@ -31,8 +31,6 @@ $ > predown template.md output.md --data data.toml --wrap wrapper.frontmatter
 
 Let's assume you have `example.md`, `data.toml`, and `wrapper.frontmatter` files like these:
 
-#### Files
-
 ##### example.md
 
 ```markdown
