@@ -85,6 +85,18 @@ jobs:
           paths:
             - dist
 
+  release:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Create GitHub Release
+          command: |
+            hub release create ${CIRCLE_TAG:1} -m 'Created by CircleCI' -a dist/predown_darwin -a dist/predown_linux
+
 workflows:
   version: 2
 
@@ -118,3 +130,7 @@ workflows:
           requires:
             - lint
             - test
+      - release:
+          <<: *releases
+          requires:
+            - build
