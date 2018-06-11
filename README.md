@@ -22,6 +22,52 @@ $ > predown template.md output.md --data data.toml
 $ > predown template.md output.md --data data.toml --wrap wrapper.frontmatter
 ```
 
+### Example
+
+Let's assume you have `example.md`, `data.toml`, and `wrapper.frontmatter` files like these:
+
+##### example.md
+
+```markdown
+# Headline
+
+Variable Example from `data.toml` is **{{ .Example }}**.
+````
+
+##### data.toml
+
+```toml
+Example = "Foo"
+```
+
+##### wrapper.frontmatter
+
+```frontmatter
+---
+Example: {{ .Data.Example }}
+---
+
+{{ .Content }}
+```
+
+Using `predown`, you can merge the data from `data.toml` and merge it with `example.md`, and wrap everything in `wrapper.frontmatter` afterwords.
+
+```bash
+$ > predown template.md output.md --data data.toml --wrap wrapper.frontmatter
+```
+
+This will create a file called `output.md` with the following content:
+
+```markdown
+---
+Example: Foo
+---
+
+Headline
+========
+
+Variable Example from `data.toml` is **Foo**.```
+
 ## Install
 
 ### Bash
