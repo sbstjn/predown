@@ -50,7 +50,7 @@ Example: {{ .Data.Example }}
 {{ .Content }}
 ```
 
-Using `predown`, you can merge the data from `data.toml` and merge it with `example.md`, and wrap everything in `wrapper.frontmatter` afterwords.
+Using `predown`, you can merge the data from `data.toml` with `example.md`, and wrap everything in `wrapper.frontmatter` afterwords.
 
 ```bash
 $ > predown template.md output.md --data data.toml --wrap wrapper.frontmatter
