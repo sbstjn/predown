@@ -78,6 +78,8 @@ Headline
 Variable Example from `data.toml` is **Foo**.
 ```
 
+As you can see, the `Markdown` file will be tidied up. This can be very handy if you work with tables in your Markdown files. After running `predown`, they nicely align …
+
 ## Install
 
 ### Bash
