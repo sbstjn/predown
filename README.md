@@ -1,6 +1,6 @@
 # predown
 
-> Preprocess Markdown files using Go templates and TOML configuration
+> Preprocess Markdown files using Go templates and TOML configuration.
 
 ## Usage
 
@@ -18,7 +18,9 @@ $ > predown template.md output.md --data data.toml --wrap wrapper.frontmatter
 
 ## Install
 
-To download the latest binary for your system (`linux` or `darwin`), just use the `curl` request from below. Depending on your internet connection, GitHub might refuse the connection due to API rate limitations.
+### Bash
+
+To download the latest binary for your system (`linux` or `darwin`), just use the following `curl` request:
 
 ```bash
 $ > curl -sSLfo predown \
@@ -31,4 +33,23 @@ $ > curl -sSLfo predown \
     `
 $ > chmod +x predown
 $ > ./predown --version
+```
+
+### Makefile
+
+To add `predown` to your existing setup, you can update your `Makefile` to download the binary file.
+
+```make
+PREDOWN= ./predown
+
+$(PREDOWN):
+  @ curl -sSLfo $(PREDOWN) \
+    ` \
+      curl -sSLf https://api.github.com/repos/sbstjn/predown/releases/latest \
+      | grep browser_download_url \
+      | cut -d '"' -f 4 \
+      | grep $(shell uname -s | tr A-Z a-z) \
+    `
+    @ chmod +x $(PREDOWN)
+    @ $(PREDOWN) --version
 ```
