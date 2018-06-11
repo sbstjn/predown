@@ -1,6 +1,6 @@
 # predown
 
-> Preprocess Markdown files using Go templates and TOML configuration.
+Preprocess Markdown files using Go templates and TOML configuration.
 
 ## Usage
 
@@ -20,6 +20,34 @@ $ > predown template.md > output.md
 $ > predown template.md output.md
 $ > predown template.md output.md --data data.toml
 $ > predown template.md output.md --data data.toml --wrap wrapper.frontmatter
+```
+
+### Example
+
+Let's assume you have `example.md`, `data.toml`, and `wrapper.frontmatter` files like these:
+
+#### example.md
+
+```markdown
+# Headline
+
+Variable Example from `data.toml` is **{{ .Example }}**.
+````
+
+#### data.toml
+
+```toml
+Example = "Foo"
+```
+
+#### wrapper.frontmatter
+
+```frontmatter
+---
+Example: {{ .Data.Example }}
+---
+
+{{ .Content }}
 ```
 
 ## Install
@@ -59,3 +87,13 @@ $(PREDOWN):
     @ chmod +x $(PREDOWN)
     @ $(PREDOWN) --version
 ```
+
+## License
+
+Feel free to use the code, it's released using the [MIT license](LICENSE.md).
+
+## Contribution
+
+You are welcome to contribute to this project! 😘 
+
+To make sure you have a pleasant experience, please read the [code of conduct](CODE_OF_CONDUCT.md). It outlines core values and beliefs and will make working together a happier experience.
