@@ -5,7 +5,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/sbstjn/predown)](https://goreportcard.com/report/github.com/sbstjn/predown)
 [![Build Status](https://img.shields.io/circleci/project/sbstjn/predown.svg?maxAge=600)](https://circleci.com/gh/sbstjn/appsync-router)
 
-Preprocess Markdown files using Go templates and TOML configuration.
+Preprocess Markdown files using [Go templates](https://golang.org/pkg/text/template/) and [TOML](https://github.com/toml-lang/toml) configuration.
 
 ## Usage
 
