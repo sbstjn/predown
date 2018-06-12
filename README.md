@@ -37,12 +37,37 @@ Let's assume you have `example.md`, `data.toml`, and `wrapper.frontmatter` files
 # Headline
 
 Variable Example from `data.toml` is **{{ .Example }}**.
+
+## Table
+
+| Name | Age |
+| ---- | --- |
+{{- range .People }}
+| {{ .Name }} | {{ .Age }} |
+{{- end }}
+
+Nice, isn't it? ;)
 ````
 
 ##### data.toml
 
 ```toml
 Example = "Foo"
+
+[[People]]
+
+Name = "Frank"
+Age = 21
+
+[[People]]
+
+Name = "Claude"
+Age = 45
+
+[[People]]
+
+Name = "Natascha"
+Age = 37
 ```
 
 ##### wrapper.frontmatter
@@ -76,6 +101,17 @@ Headline
 ========
 
 Variable Example from `data.toml` is **Foo**.
+
+Table
+-----
+
+| Name     | Age |
+|----------|-----|
+| Frank    | 21  |
+| Claude   | 45  |
+| Natascha | 37  |
+
+Nice, isn't it? ;)
 ```
 
 As you can see, the `Markdown` file will be tidied up. This can be very handy if you work with tables in your Markdown files. After running `predown`, they nicely align …
