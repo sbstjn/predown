@@ -1,14 +1,13 @@
 VERSION?=0.0.0-dev
-NAME?=predown
 GOOS?=darwin
-FLAGS?="-X main.version=${VERSION} -X main.name=${NAME}"
+FLAGS?="-X main.version=${VERSION}"
 COVERAGE_FILE ?= c.out
 
 build: 
 	@ go build -ldflags ${FLAGS} -o dist/${NAME}_${GOOS}
 
 run:
-	@ go run -ldflags ${FLAGS} main.go
+	@ go run -ldflags ${FLAGS} *.go ${CMD}
 
 test:
 	@ go test -coverprofile=$(COVERAGE_FILE) $(RACE) ./...

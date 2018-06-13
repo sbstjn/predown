@@ -1,82 +1,25 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
-	"html/template"
 	"io/ioutil"
 	"os"
-	"path"
 	"path/filepath"
 
-	"github.com/BurntSushi/toml"
 	"github.com/sbstjn/markdownfmt/markdown"
 	"github.com/spf13/cobra"
 )
 
-func parseArguments(args []string) error {
-	if len(args) < 1 || len(args) > 2 {
-		return fmt.Errorf("Invalid number of arguments")
-	}
-
-	fileIn = args[0]
-
-	if len(args) == 2 {
-		fileOut = args[1]
-	}
-
-	return nil
-}
-
-func parseData() error {
-	if flagData == "" {
-		return nil
-	}
-
-	content, err := ioutil.ReadFile(flagData)
-
-	if err != nil {
-		return fmt.Errorf("Failed to access data file: %s", flagData)
-	}
-
-	if _, err := toml.Decode(string(content), &data); err != nil {
-		return fmt.Errorf("Failed to parse data file: %s", flagData)
-	}
-
-	return nil
-}
-
-func parseTemplateFile(file string) (*template.Template, error) {
-	name := path.Base(file)
-	return template.New(name).ParseFiles(file)
-}
-
-func parseWrapper() error {
-	if flagWrap == "" {
-		return nil
-	}
-
-	tpl, err := parseTemplateFile(flagWrap)
-	templateWrapper = tpl
-
-	return err
-}
-
-func parseIn() error {
-	tpl, err := parseTemplateFile(fileIn)
-	templateIn = tpl
-
-	return err
-}
-
-func merge(template *template.Template, data interface{}) ([]byte, error) {
-	var result = bytes.Buffer{}
-	err := template.Execute(&result, data)
-
-	return result.Bytes(), err
-}
-
 var command = &cobra.Command{
+	Use:  "predown <in> [<out>]",
+	Args: cobra.RangeArgs(1, 2),
+	Example: `  predown template.md
+  predown template.md --data data.toml
+  predown template.md --data data.toml --wrap wrapper.frontmatter
+
+  predown template.md output.md
+  predown template.md output.md --data data.toml
+  predown template.md output.md --data data.toml --wrap wrapper.frontmatter`,
 	Short: "Preprocess Markdown templates as Go templates",
 	Run: func(cmd *cobra.Command, args []string) {
 		var result []byte
