@@ -10,7 +10,8 @@ run:
 	@ go run -ldflags ${FLAGS} *.go ${CMD}
 
 test:
-	@ go test -coverprofile=$(COVERAGE_FILE) $(RACE) ./...
+	@ ginkgo
+	# @ go test -coverprofile=$(COVERAGE_FILE) $(RACE) ./...
 
 lint:
 	@ golint ./..

@@ -2,41 +2,9 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"html/template"
-	"io/ioutil"
 	"path"
-
-	"github.com/BurntSushi/toml"
 )
-
-func parseArguments(args []string) error {
-	fileIn = args[0]
-
-	if len(args) == 2 {
-		fileOut = args[1]
-	}
-
-	return nil
-}
-
-func parseData() error {
-	if flagData == "" {
-		return nil
-	}
-
-	content, err := ioutil.ReadFile(flagData)
-
-	if err != nil {
-		return fmt.Errorf("Failed to access data file: %s", flagData)
-	}
-
-	if _, err := toml.Decode(string(content), &data); err != nil {
-		return fmt.Errorf("Failed to parse data file: %s", flagData)
-	}
-
-	return nil
-}
 
 func parseTemplateFile(file string) (*template.Template, error) {
 	name := path.Base(file)

@@ -39,6 +39,8 @@ func init() {
 func main() {
 	command.Version = version
 
+	command.SetErrorTemplate("Error:\n  %s\n\n")
+
 	command.SetVersionTemplate(fmt.Sprintf(
 		"predown v{{ .Version }} %s %s\n",
 		runtime.GOOS+"/"+runtime.GOARCH,
@@ -46,7 +48,6 @@ func main() {
 	))
 
 	if err := command.Execute(); err != nil {
-		fmt.Println(err)
 		os.Exit(1)
 	}
 }

@@ -6,29 +6,28 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/sbstjn/cobra"
 	"github.com/sbstjn/markdownfmt/markdown"
-	"github.com/spf13/cobra"
 )
 
-var command = &cobra.Command{
-	Use:  "predown <in> [<out>]",
-	Args: cobra.RangeArgs(1, 2),
-	Example: `  predown template.md
+var commandUsage = `  predown template.md
   predown template.md --data data.toml
   predown template.md --data data.toml --wrap wrapper.frontmatter
 
   predown template.md output.md
   predown template.md output.md --data data.toml
-  predown template.md output.md --data data.toml --wrap wrapper.frontmatter`,
-	Short: "Preprocess Markdown templates as Go templates",
+  predown template.md output.md --data data.toml --wrap wrapper.frontmatter`
+
+var command = &cobra.Command{
+	Use:     "predown <in> [<out>]",
+	Args:    cobra.RangeArgs(1, 2),
+	Example: commandUsage,
+	Short:   "Preprocess Markdown templates as Go templates",
 	Run: func(cmd *cobra.Command, args []string) {
 		var result []byte
 		var err error
 
-		// Check for valid number of arguments
-		if err := parseArguments(args); err != nil {
-			abort(err.Error())
-		}
+		parseArguments(args)
 
 		// Check if input file can be read and parsed
 		if err := parseIn(); err != nil {
