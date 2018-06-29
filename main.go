@@ -8,7 +8,6 @@ import (
 )
 
 var (
-	name    = "predown"
 	version = "0.0.0-dev"
 
 	flagData string
@@ -34,21 +33,21 @@ func write(format string, a ...interface{}) {
 
 func init() {
 	command.PersistentFlags().StringVar(&flagData, "data", "", "Path to TOML data file")
-	command.PersistentFlags().StringVar(&flagWrap, "wrap", "", "Path to Markdown wrapper file")
+	command.PersistentFlags().StringVar(&flagWrap, "wrap", "", "Path to wrapper file")
 }
 
 func main() {
-	command.Use = name
 	command.Version = version
 
+	command.SetErrorTemplate("Error:\n  %s\n\n")
+
 	command.SetVersionTemplate(fmt.Sprintf(
-		"{{ .Use }} v{{ .Version }} %s %s\n",
+		"predown v{{ .Version }} %s %s\n",
 		runtime.GOOS+"/"+runtime.GOARCH,
 		runtime.Version(),
 	))
 
 	if err := command.Execute(); err != nil {
-		fmt.Println(err)
 		os.Exit(1)
 	}
 }

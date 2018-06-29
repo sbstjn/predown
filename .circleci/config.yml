@@ -61,11 +61,6 @@ jobs:
           name: Run tests
           command: make test
 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - c.out
-
   build:
     <<: *defaults
 

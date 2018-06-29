@@ -1,91 +1,34 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
-	"html/template"
 	"io/ioutil"
 	"os"
-	"path"
 	"path/filepath"
+	"strings"
 
-	"github.com/BurntSushi/toml"
+	"github.com/sbstjn/cobra"
 	"github.com/sbstjn/markdownfmt/markdown"
-	"github.com/spf13/cobra"
 )
 
-func parseArguments(args []string) error {
-	if len(args) < 1 || len(args) > 2 {
-		return fmt.Errorf("Invalid number of arguments")
-	}
+var commandUsage = `  predown template.md
+  predown template.md --data data.toml
+  predown template.md --data data.toml --wrap wrapper.frontmatter
 
-	fileIn = args[0]
-
-	if len(args) == 2 {
-		fileOut = args[1]
-	}
-
-	return nil
-}
-
-func parseData() error {
-	if flagData == "" {
-		return nil
-	}
-
-	content, err := ioutil.ReadFile(flagData)
-
-	if err != nil {
-		return fmt.Errorf("Failed to access data file: %s", flagData)
-	}
-
-	if _, err := toml.Decode(string(content), &data); err != nil {
-		return fmt.Errorf("Failed to parse data file: %s", flagData)
-	}
-
-	return nil
-}
-
-func parseTemplateFile(file string) (*template.Template, error) {
-	name := path.Base(file)
-	return template.New(name).ParseFiles(file)
-}
-
-func parseWrapper() error {
-	if flagWrap == "" {
-		return nil
-	}
-
-	tpl, err := parseTemplateFile(flagWrap)
-	templateWrapper = tpl
-
-	return err
-}
-
-func parseIn() error {
-	tpl, err := parseTemplateFile(fileIn)
-	templateIn = tpl
-
-	return err
-}
-
-func merge(template *template.Template, data interface{}) ([]byte, error) {
-	var result = bytes.Buffer{}
-	err := template.Execute(&result, data)
-
-	return result.Bytes(), err
-}
+  predown template.md output.md
+  predown template.md output.md --data data.toml
+  predown template.md output.md --data data.toml --wrap wrapper.frontmatter`
 
 var command = &cobra.Command{
-	Short: "Preprocess Markdown templates as Go templates",
+	Use:     "predown <in> [<out>]",
+	Args:    cobra.RangeArgs(1, 2),
+	Example: commandUsage,
+	Short:   "Preprocess Markdown templates as Go templates",
 	Run: func(cmd *cobra.Command, args []string) {
 		var result []byte
 		var err error
 
-		// Check for valid number of arguments
-		if err := parseArguments(args); err != nil {
-			abort(err.Error())
-		}
+		parseArguments(args)
 
 		// Check if input file can be read and parsed
 		if err := parseIn(); err != nil {
@@ -136,8 +79,16 @@ var command = &cobra.Command{
 				abort("Failed to create needed folders for file: %s", fileOut)
 			}
 
-			if err := ioutil.WriteFile(fileOut, result, 0644); err != nil {
-				abort("Failed to write file to destination: %s", fileOut)
+			if strings.HasSuffix(fileOut, ".md") {
+				if err := ioutil.WriteFile(fileOut, result, 0644); err != nil {
+					abort("Failed to write file to destination: %s", fileOut)
+				}
+			} else if strings.HasSuffix(fileOut, ".html") {
+				if err := ioutil.WriteFile(fileOut, toHTML(result), 0644); err != nil {
+					abort("Failed to write file to destination: %s", fileOut)
+				}
+			} else {
+				abort("Unsupported file extension for output: %s", fileOut)
 			}
 		}
 	},

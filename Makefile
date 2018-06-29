@@ -1,29 +1,26 @@
 VERSION?=0.0.0-dev
-NAME?=predown
 GOOS?=darwin
-FLAGS?="-X main.version=${VERSION} -X main.name=${NAME}"
+FLAGS?="-X main.version=${VERSION}"
 COVERAGE_FILE ?= c.out
 
 build: 
 	@ go build -ldflags ${FLAGS} -o dist/${NAME}_${GOOS}
 
 run:
-	@ go run -ldflags ${FLAGS} main.go
+	@ go run -ldflags ${FLAGS} \
+		main.go \
+		arguments.go \
+		command.go \
+		data.go \
+		format.go \
+		functions.go \
+		${CMD}
 
 test:
-	@ go test -coverprofile=$(COVERAGE_FILE) $(RACE) ./...
+	@ ginkgo
 
 lint:
 	@ golint ./..
 
 tool:
 	@ go tool cover -$(MODE)=$(COVERAGE_FILE)
-
-race: RACE=-race
-race: test
-
-func: MODE=func
-func: test tool
-
-html: MODE=html
-html: test tool
