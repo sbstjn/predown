@@ -1,5 +1,6 @@
 VERSION?=0.0.0-dev
 GOOS?=darwin
+NAME?=predown
 FLAGS?="-X main.version=${VERSION}"
 COVERAGE_FILE ?= c.out
 
