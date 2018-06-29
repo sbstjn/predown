@@ -7,7 +7,14 @@ build:
 	@ go build -ldflags ${FLAGS} -o dist/${NAME}_${GOOS}
 
 run:
-	@ go run -ldflags ${FLAGS} *.go ${CMD}
+	@ go run -ldflags ${FLAGS} \
+		main.go \
+		arguments.go \
+		command.go \
+		data.go \
+		format.go \
+		functions.go \
+		${CMD}
 
 test:
 	@ ginkgo

@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/sbstjn/cobra"
 	"github.com/sbstjn/markdownfmt/markdown"
@@ -78,8 +79,16 @@ var command = &cobra.Command{
 				abort("Failed to create needed folders for file: %s", fileOut)
 			}
 
-			if err := ioutil.WriteFile(fileOut, result, 0644); err != nil {
-				abort("Failed to write file to destination: %s", fileOut)
+			if strings.HasSuffix(fileOut, ".md") {
+				if err := ioutil.WriteFile(fileOut, result, 0644); err != nil {
+					abort("Failed to write file to destination: %s", fileOut)
+				}
+			} else if strings.HasSuffix(fileOut, ".html") {
+				if err := ioutil.WriteFile(fileOut, toHTML(result), 0644); err != nil {
+					abort("Failed to write file to destination: %s", fileOut)
+				}
+			} else {
+				abort("Unsupported file extension for output: %s", fileOut)
 			}
 		}
 	},
