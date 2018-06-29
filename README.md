@@ -10,21 +10,25 @@ Preprocess Markdown files using [Go templates](https://golang.org/pkg/text/templ
 ## Usage
 
 ```bash
-# Print merged data to stdout
+# Show generated Markdown content in stdout
 
 $ > predown template.md
 $ > predown template.md --data data.toml
 $ > predown template.md --data data.toml --wrap wrapper.frontmatter
 
-# Pipe merged data to file
+# Pipe generated Markdown to file
 
 $ > predown template.md > output.md
 
-# Create file and store data
+# Save generated Markdown in file
 
 $ > predown template.md output.md
 $ > predown template.md output.md --data data.toml
 $ > predown template.md output.md --data data.toml --wrap wrapper.frontmatter
+
+# Transform generated Markdown to HTML
+
+$ > predown template.md output.html --data data.toml
 ```
 
 ### Example
