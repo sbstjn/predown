@@ -1,9 +1,8 @@
 # predown
 
 [![GitHub release](https://img.shields.io/github/release/sbstjn/predown.svg?maxAge=600)](https://github.com/sbstjn/predown/releases)
-[![MIT License](https://img.shields.io/github/license/sbstjn/predown.svg?maxAge=3600)](https://github.com/sbstjn/predown/blob/master/LICENSE.md)
-[![Go Report Card](https://goreportcard.com/badge/github.com/sbstjn/predown)](https://goreportcard.com/report/github.com/sbstjn/predown)
-[![Build Status](https://img.shields.io/circleci/project/sbstjn/predown.svg?maxAge=600)](https://circleci.com/gh/sbstjn/appsync-router)
+[![MIT License](https://badgen.now.sh/badge/License/MIT/blue)](https://github.com/sbstjn/predown/blob/master/LICENSE.md)
+[![CircleCI Build Status](https://badgen.now.sh/circleci/github/sbstjn/predown)](https://circleci.com/gh/sbstjn/predown)
 
 Preprocess Markdown files using [Go templates](https://golang.org/pkg/text/template/) and [TOML](https://github.com/toml-lang/toml) configuration.
 
