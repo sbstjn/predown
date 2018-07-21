@@ -1,6 +1,6 @@
 # predown
 
-[![GitHub release](https://img.shields.io/github/release/sbstjn/predown.svg?maxAge=600)](https://github.com/sbstjn/predown/releases)
+[![Current Release](https://badgen.now.sh/github/release/sbstjn/predown)](https://github.com/sbstjn/predown/releases)
 [![MIT License](https://badgen.now.sh/badge/License/MIT/blue)](https://github.com/sbstjn/predown/blob/master/LICENSE.md)
 [![CircleCI Build Status](https://badgen.now.sh/circleci/github/sbstjn/predown)](https://circleci.com/gh/sbstjn/predown)
 
